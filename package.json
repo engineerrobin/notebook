@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon ./bin/www",
-    "start": "node ./bin/www"
+    "run": "node ./bin/www"
   },
   "dependencies": {
     "connect-mongo": "^6.0.0",
