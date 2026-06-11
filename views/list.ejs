@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/list.css">
+</head>
+<body>
+    <main class="page">
+        <header class="hero">
+            <div class="hero__text">
+                <p class="hero__tag">Notebook</p>
+                <h1>账单列表</h1>
+                <p class="hero__desc">记录每一笔收支，清晰掌握消费与结余。</p>
+            </div>
+            <div class="hero__actions">
+                 <form class="hero__logout-form" action="/acount/logout" method="post">
+                    <button class="hero__action hero__action--secondary" type="submit">退出登录</button>
+                </form>
+                <a class="hero__action" href="/add">+ 添加账单</a>
+            </div>
+        </header>
+
+        <section class="overview" aria-label="账单概览">
+            <article class="overview__card">
+                <p>总收入</p>
+                <h2 id="incomeTotal">0.00</h2>
+            </article>
+            <article class="overview__card">
+                <p>总支出</p>
+                <h2 id="expenseTotal">0.00</h2>
+            </article>
+            <article class="overview__card overview__card--balance">
+                <p>当前结余</p>
+                <h2 id="balanceTotal">0.00</h2>
+            </article>
+        </section>
+
+        <section class="panel" aria-label="筛选与账单列表">
+            <div class="toolbar">
+                <label class="field">
+                    <span>关键字</span>
+                    <input id="keywordInput" type="text" placeholder="搜索类别或备注">
+                </label>
+                <label class="field">
+                    <span>类型</span>
+                    <select id="typeFilter">
+                        <option value="all">全部</option>
+                        <option value="income">收入</option>
+                        <option value="expense">支出</option>
+                    </select>
+                </label>
+                <label class="field">
+                    <span>排序</span>
+                    <select id="sortFilter">
+                        <option value="dateDesc">日期: 新到旧</option>
+                        <option value="dateAsc">日期: 旧到新</option>
+                        <option value="amountDesc">金额: 高到低</option>
+                        <option value="amountAsc">金额: 低到高</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="table-wrap">
+                <table class="bill-table">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>类别</th>
+                            <th>备注</th>
+                            <th>类型</th>
+                            <th class="align-right">金额</th>
+                            <th class="align-right">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="billTableBody"></tbody>
+                </table>
+                <p id="emptyState" class="empty-state" hidden>暂无符合条件的账单</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="/javascripts/list.js"></script>
+</body>
+</html>

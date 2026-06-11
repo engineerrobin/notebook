@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/add.css">
+</head>
+<body>
+    <main class="page">
+        <header class="hero">
+            <div class="hero__text">
+                <p class="hero__tag">Notebook</p>
+                <h1>添加账单</h1>
+                <p class="hero__desc">快速记录一笔收支，保持账目清晰可追踪。</p>
+            </div>
+            <div class="hero__actions">
+                <form class="hero__logout-form" action="/acount/logout" method="post">
+                    <button class="hero__action hero__action--secondary" type="submit">退出登录</button>
+                </form>
+                <a class="hero__action" href="/list">返回账单列表</a>
+            </div>
+        </header>
+
+        <section class="panel" aria-label="账单填写">
+            <form id="billForm" class="bill-form" novalidate>
+                <div class="grid">
+                    <label class="field">
+                        <span>账单日期</span>
+                        <input id="dateInput" name="date" type="date" required>
+                    </label>
+
+                    <label class="field">
+                        <span>账单类型</span>
+                        <select id="typeInput" name="type">
+                            <option value="income">收入</option>
+                            <option value="expense">支出</option>
+                        </select>
+                    </label>
+
+                    <label class="field field--full">
+                        <span>账单类别</span>
+                        <input id="categoryInput" name="category" type="text" maxlength="20" placeholder="例如：工资、餐饮、交通" required>
+                    </label>
+
+                    <label class="field field--full">
+                        <span>备注</span>
+                        <input id="noteInput" name="note" type="text" maxlength="50" placeholder="可选，补充说明这笔账单">
+                    </label>
+
+                    <label class="field">
+                        <span>金额</span>
+                        <input id="amountInput" name="amount" type="number" step="0.01" min="0.01" placeholder="0.00" required>
+                    </label>
+
+                    <div class="preview" aria-live="polite">
+                        <p class="preview__label">预览</p>
+                        <p id="previewText" class="preview__value">收入 +0.00</p>
+                    </div>
+                </div>
+
+                <p id="formMessage" class="form-message" hidden></p>
+
+                <div class="actions">
+                    <button class="btn btn--primary" type="submit">保存账单</button>
+                    <button class="btn btn--ghost" type="reset">清空重填</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="/javascripts/add.js"></script>
+</body>
+</html>

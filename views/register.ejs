@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/register.css">
+</head>
+<body>
+    <main class="page">
+        <header class="hero">
+            <div class="hero__text">
+                <p class="hero__tag">Notebook</p>
+                <h1>注册账号</h1>
+                <p class="hero__desc">创建新账号后即可登录并开始记账。</p>
+            </div>
+            <a class="hero__action" href="/acount/login">返回登录</a>
+        </header>
+
+        <section class="panel" aria-label="注册表单">
+            <form id="registerForm" class="register-form" novalidate>
+                <div class="grid">
+                    <label class="field">
+                        <span>用户名</span>
+                        <input id="usernameInput" name="username" type="text" maxlength="20" placeholder="4-20 位字符" required>
+                    </label>
+
+                    <label class="field">
+                        <span>手机号</span>
+                        <input id="phoneInput" name="phone" type="tel" maxlength="11" placeholder="请输入 11 位手机号" required>
+                    </label>
+
+                    <label class="field field--full">
+                        <span>邮箱</span>
+                        <input id="emailInput" name="email" type="email" placeholder="例如：you@example.com" required>
+                    </label>
+
+                    <label class="field">
+                        <span>密码</span>
+                        <input id="passwordInput" name="password" type="password" minlength="6" placeholder="至少 6 位" required>
+                    </label>
+
+                    <label class="field">
+                        <span>确认密码</span>
+                        <input id="confirmInput" name="confirmPassword" type="password" minlength="6" placeholder="请再次输入密码" required>
+                    </label>
+                </div>
+
+                <p id="formMessage" class="form-message" hidden></p>
+
+                <div class="actions">
+                    <button class="btn btn--primary" type="submit">完成注册</button>
+                    <button class="btn btn--ghost" type="reset">清空</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="/javascripts/register.js"></script>
+</body>
+</html>
