@@ -14,7 +14,8 @@ router.get('/list', checkLogin, function(req, res, next) {
 });
 // 返回账单数据的 API 路由
 router.get('/api/bills', checkLogin, function(req, res, next) {
-  Bill.find().then((bills) => {
+  // 通过用户名查询当前用户的账单数据
+  Bill.find({ username: req.session.user.username }).then((bills) => {
     res.json({ bills });
   }).catch((err) => {
     console.error('Error fetching bills:', err);
@@ -26,7 +27,7 @@ router.delete('/api/bills/:id', checkLogin, function(req, res, next) {
   const id = req.params.id;
   console.log('Deleting bill with id:', id);
   // 注意：MongoDB 中的 _id 是一个 ObjectId 类型，而不是数字，所以需要根据实际情况调整查询条件
-  Bill.deleteOne({ _id: id }).then(() => {
+  Bill.deleteOne({ _id: id, username: req.session.user.username }).then(() => {
     res.json({ status: 'success', statusCode: 200 });
   }).catch((err) => {
     console.error('Error deleting bill:', err);
@@ -40,7 +41,10 @@ router.get('/add', function(req, res, next) {
 // 添加账单处理
 router.post('/add', checkLogin, function(req, res, next) {
   const billData = req.body;
-  Bill.create(billData).then((doc) => {
+  // 将当前用户的用户名添加到账单数据中，这样在数据库中就可以知道这个账单是哪个用户的
+  // console.log('Adding bill for user:', req.session.user.username);
+  // billData.username = req.session.user.username;
+  Bill.create({...billData,username: req.session.user.username}).then((doc) => {
     res.json({status: 'success', statusCode: 200});
   }).catch((err) => {
     console.error('Error creating bill:', err);

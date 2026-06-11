@@ -58,27 +58,54 @@ function fetchRequest(url,method,type,body){
     });
   }
 
-  function handleSubmit(event) {
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   const data = collectData();
+  //   fetchRequest('/acount/register', 'POST', 'application/json', data).then(response => {
+  //     if (response.status === 'success') {
+  //       showMessage("注册成功", "success");
+  //     } else {
+  //       showMessage("注册失败", "error");
+  //     }
+  //   });
+  //   const error = validate(data);
+
+  //   if (error) {
+  //     showMessage(error, "error");
+  //     return;
+  //   }
+
+  //   showMessage("注册信息已通过校验，可接后端接口", "success");
+  //   refs.form.reset();
+  // }
+  async function handleSubmit(event) {
     event.preventDefault();
     const data = collectData();
-    console.log("Collected data:", data);
-    fetchRequest('/acount/register', 'POST', 'application/json', data).then(response => {
-      if (response.status === 'success') {
-        showMessage("注册成功", "success");
-        refs.form.reset();
-      } else {
-        showMessage("注册失败", "error");
-      }
-    });
+    // 先进行前端校验，如果有错误则直接显示错误信息并返回
     const error = validate(data);
-
     if (error) {
       showMessage(error, "error");
       return;
     }
-
-    showMessage("注册信息已通过校验，可接后端接口", "success");
-    refs.form.reset();
+    try {      
+      const response = await fetchRequest('/acount/register', 'POST', 'application/json', data);
+      if (response.status === 'success') {
+        showMessage("注册成功3秒后将跳转到登录页面", "success");
+        const timer = setTimeout(() => {
+          // 这里可以清除定时器，防止在用户离开页面后仍然尝试跳转
+          clearTimeout(timer);
+          window.location.href = '/acount/login';
+        }, 3000);
+      } else {
+        showMessage(response.message, "error");
+        const timer = setTimeout(() => {
+          clearTimeout(timer);
+          refs.form.reset();
+        }, 3000);
+      }
+    } catch (error) {
+      showMessage("请求失败，请稍后重试", "error");
+    }
   }
 
   function handleReset() {

@@ -95,6 +95,34 @@ body {
   box-shadow: none;
 }
 
+.hero__user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.hero__user-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e6efde;
+}
+
+.hero__user-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: #466246;
+}
+
 .panel {
   background: var(--card);
   border-radius: 18px;
@@ -252,6 +280,11 @@ body {
   .hero__action {
     width: 100%;
     text-align: center;
+  }
+
+  .hero__user-badge {
+    width: 100%;
+    justify-content: center;
   }
 }
 

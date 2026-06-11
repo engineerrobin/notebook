@@ -11,14 +11,22 @@ router.get('/register', function(req, res, next) {
 });
 // 注册用户
 router.post('/register', function(req, res, next) {
-  // 在数据库中注册用户
-  // 使用md5加密密码
-  User.create({...req.body,password: md5(req.body.password)}).then((user) => {
-    res.json({ status: 'success', statusCode: 200, user });
-    
-  }).catch((err) => {
-    console.error('Error creating user:', err);
-    res.status(500).json({ message: '注册用户失败' }); 
+  // 查询数据库中是否已经存在相同用户名的用户
+  User.findOne({ username: req.body.username }).then((existingUser) => {
+    console.log('Existing user:', existingUser);
+    if (existingUser) {
+      // 如果用户已经存在，返回错误信息
+      return res.json({ status: 'error', statusCode: 400, message: '用户名已存在' });
+    }
+    // 在数据库中注册用户
+    // 使用md5加密密码
+    User.create({...req.body,password: md5(req.body.password)}).then((user) => {
+      res.json({ status: 'success', statusCode: 200, user });
+      // 注册成功后，直接重定向到登录页面
+    }).catch((err) => {
+      console.error('Error creating user:', err);
+      res.status(500).json({ message: '注册用户失败' }); 
+    });
   });
 });
 // 登录用户

@@ -142,7 +142,23 @@
     refs.typeInput.value = "income";
     updatePreview();
   }
+  // 获取当前用户名并显示在页面上
+  function loadUser() {
+    const username = localStorage.getItem("notebook-login-user");
+    // 获取dom元素
+    const userTextNode = document.querySelector(".hero__user-badge span:last-child");
+    // 如果元素不存在，直接返回，避免后续操作报错
+    if (!userTextNode) return;
+    // 如果用户名存在，显示欢迎信息；否则显示默认文本。
+    if (username) {
+      userTextNode.textContent = `您好 ${username}`;
+      return;
+    }
+    // 没有用户名，显示默认文本
+    userTextNode.textContent = "您好";
+  }
 
+  loadUser();
   // 处理 reset 事件，等待浏览器完成原生重置后再执行自定义恢复。
   function handleFormResetEvent() {
     setTimeout(handleReset, 0);
@@ -152,7 +168,7 @@
   refs.amountInput.addEventListener("input", updatePreview);
   refs.form.addEventListener("submit", handleSubmit);
   refs.form.addEventListener("reset", handleFormResetEvent);
-
+  
   setDefaultDate();
   updatePreview();
 })();

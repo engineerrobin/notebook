@@ -24,7 +24,7 @@ app.use(session({
     resave: false, // 是否在每次请求时重新保存session
     saveUninitialized: true, // 是否保存未初始化的session
     cookie: { 
-        maxAge: 1000 * 60, // 设置cookie的过期时间，单位是毫秒，这里设置为1分钟
+        maxAge: 1000 * 60 * 60, // 设置cookie的过期时间，单位是毫秒，这里设置为1小时
         httpOnly: true // 设置cookie为httpOnly，防止客户端JavaScript访问cookie
     },
         store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/sessionDB' }), // 将session存储在MongoDB中

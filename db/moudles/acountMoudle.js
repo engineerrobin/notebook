@@ -7,7 +7,8 @@ const billSchema = new mongoose.Schema({
     category: { type: String, required: true },
     note: { type: String },
     type: { type: String, enum: ['income', 'expense'], required: true },
-    amount: { type: Number, required: true }
+    amount: { type: Number, required: true },
+    username: { type: String, required: true } // 添加用户名字段，用于关联账单和用户
 });
 // 创建一个模型来操作账单数据
 const Bill = mongoose.model('Bill', billSchema);

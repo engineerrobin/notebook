@@ -24,13 +24,23 @@
     }  
   }
   loadBills();
-//   const bills = [
-//     { id: 1, date: "2026-05-28", category: "工资", note: "5月工资", type: "income", amount: 12000 },
-//     { id: 2, date: "2026-05-29", category: "餐饮", note: "周末聚餐", type: "expense", amount: 268.5 },
-//     { id: 3, date: "2026-05-30", category: "交通", note: "地铁月卡", type: "expense", amount: 180 },
-//     { id: 4, date: "2026-05-31", category: "理财", note: "货币基金收益", type: "income", amount: 96.3 },
-//     { id: 5, date: "2026-06-01", category: "购物", note: "生活用品", type: "expense", amount: 328 }
-//   ];
+  // 获取当前用户名并显示在页面上
+  function loadUser() {
+    const username = localStorage.getItem("notebook-login-user");
+    // 获取dom元素
+    const userTextNode = document.querySelector(".hero__user-badge span:last-child");
+    // 如果元素不存在，直接返回，避免后续操作报错
+    if (!userTextNode) return;
+    // 如果用户名存在，显示欢迎信息；否则显示默认文本。
+    if (username) {
+      userTextNode.textContent = `您好 ${username}`;
+      return;
+    }
+    // 没有用户名，显示默认文本
+    userTextNode.textContent = "您好";
+  }
+
+  loadUser();
 
   const state = {
     keyword: "",
@@ -177,7 +187,7 @@
   // 监听添加账单按钮点击
     document.getElementsByClassName("hero__action")[0].addEventListener("click", function () {
         // 跳转到添加账单页面
-        browser.push("/add");
+        window.location.href = "/add";
     });
   renderSummary();
   renderTable();
